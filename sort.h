@@ -67,8 +67,6 @@ typedef struct deck_node_s
 
 
 
-
-
 /* 	FUNCTION PROTOTYPES 		*/
 
 void print_array(const int *array, size_t size);

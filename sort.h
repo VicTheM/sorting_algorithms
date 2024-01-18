@@ -6,7 +6,6 @@
 #include <stdlib.h>
 
 
-
 /*	STRUCTURES DEFINITION 		*/
 
 /**
@@ -87,58 +86,9 @@ void quick_sort_hoare(int *array, size_t size);
 void sort_deck(deck_node_t **deck);
 
 
+/* My helper functions */
+void swap_nodes(listint_t **, listint_t *, listint_t *);
 
-
-
-
-
-
-
-/* 	ALX GIVEN PRINT FUNCTIONS 	*/
-
-/**
- * print_array - Prints an array of integers
- *
- * @array: The array to be printed
- * @size: Number of elements in @array
- */
-void print_array(const int *array, size_t size)
-{
-    size_t i;
-
-    i = 0;
-    while (array && i < size)
-    {
-        if (i > 0)
-            printf(", ");
-        printf("%d", array[i]);
-        ++i;
-    }
-    printf("\n");
-}
-
-
-
-/**
- * print_list - Prints a list of integers
- *
- * @list: The list to be printed
- */
-void print_list(const listint_t *list)
-{
-    int i;
-
-    i = 0;
-    while (list)
-    {
-        if (i > 0)
-            printf(", ");
-        printf("%d", list->n);
-        ++i;
-        list = list->next;
-    }
-    printf("\n");
-}
 
 
 

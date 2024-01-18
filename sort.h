@@ -88,8 +88,10 @@ void sort_deck(deck_node_t **deck);
 
 /* My helper functions */
 void swap_nodes(listint_t **, listint_t *, listint_t *);
-
-
+/* void quick_sort_recursion(int *array, size_t size, size_t low, size_t high); */
+void recursive_call(int *array, size_t size, int low, int high);
+int partition(int *array, size_t size, int low, int high);
+void swap(int *, int *);
 
 
 #endif /* _SORT_H_ */

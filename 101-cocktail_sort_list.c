@@ -6,62 +6,52 @@
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *tmp, *head = *list;
-	int sorted = 1;
+	listint_t *curr;
+	int sorted = 1, swapped;
 
 	if (!list || !*list || (*list)->next == NULL)
 		return;
 
-/*
-*	tmp = head;
-*	while (tmp->next)
-*		tmp = tmp->next;
-*
-*	tail = end = tmp;
-*	head = start = *list;
-*/
 	while (sorted)
 	{
-		tmp = head;
-		while (tmp->next != NULL)
+		curr = *list;
+		while (curr->next)
 		{
-			if (tmp->n > tmp->next->n)
+			swapped = 0;
+			if (curr->n > curr->next->n)
 			{
-				swap_nodes(list, tmp, tmp->next);
+				swap_nodes(list, curr, curr->next);
 				print_list(*list);
+				swapped = 1;
 				sorted = 0;
 			}
-			else
-			{
-				tmp = tmp->next;
-			}
+			if (!swapped)
+				curr = curr->next;
 		}
 
 		if (sorted)
 			break;
-
 		sorted = 1;
-		tmp = tmp->prev;
-		while (tmp->prev != NULL)
+
+		while (curr->prev)
 		{
-			if (tmp->n < tmp->prev->n)
+			swapped = 0;
+			if (curr->n < curr->prev->n)
 			{
-				swap_nodes(list, tmp->prev, tmp);
+				swap_nodes(list, curr->prev, curr);
 				print_list(*list);
+				swapped = 1;
 				sorted = 0;
 			}
-			else
-			{
-				tmp = tmp->prev;
-			}
+			if (!swapped)
+				curr = curr->prev;
 		}
+
 		if (sorted)
 			break;
 		sorted = 1;
 	}
 }
-
-
 
 /**
  * swap_nodes - swap two successive nodes of a Doubly Linked List

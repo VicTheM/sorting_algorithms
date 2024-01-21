@@ -7,23 +7,23 @@
  */
 void swap(int *a, int *b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+	int temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 
 /**
- * partition: divides the array appopraitely
+ * partition - divides the array appopraitely
  * @arr: .......
  * @size: ........
  * @low: starting index of array
  * @high: ending index of array
  *
  * Return: the index of the neutral point
- * 	ie: all elements below this index are less
- * 	than the element in the index, and likewise
- * 	those above are greater than this element
+ *	ie: all elements below this index are less
+ *	than the element in the index, and likewise
+ *	those above are greater than this element
  */
 int partition(int *arr, size_t size, int low, int high)
 {
@@ -36,36 +36,38 @@ int partition(int *arr, size_t size, int low, int high)
 		/* If current element is smaller than or equal to pivot */
 		if (arr[j] <= pivot)
 		{
-            		i++;
+			i++;
 			swap(&arr[i], &arr[j]);
-            		if (arr[i] != arr[j])
+			if (arr[i] != arr[j])
 				print_array(arr, size);
-        	}
-    	}
+		}
+	}
 
-    	swap(&arr[i + 1], &arr[high]);
-    	if (arr[i + 1] != arr[high])
+	swap(&arr[i + 1], &arr[high]);
+	if (arr[i + 1] != arr[high])
 		print_array(arr, size);
-    	return (i + 1);
+	return (i + 1);
 }
 
 
 
 /**
  * recursive_call - used to implement partitionning recursively
- * @array: ..........
+ * @arr: ..........
  * @size: ...........
  * @low: array lower index
  * @high: array higher index
  */
 void recursive_call(int *arr, size_t size, int low, int high)
 {
-    if (low < high)
-    {
-        int pi = partition(arr, size, low, high);
-        recursive_call(arr, size, low, pi - 1);
-        recursive_call(arr, size, pi + 1, high);
-    }
+	int pi;
+
+	if (low < high)
+	{
+		pi = partition(arr, size, low, high);
+		recursive_call(arr, size, low, pi - 1);
+		recursive_call(arr, size, pi + 1, high);
+	}
 }
 
 

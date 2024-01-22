@@ -60,6 +60,9 @@ void recursive_call(int *array, size_t size, int low, int high);
 int partition(int *array, size_t size, int low, int high);
 void faviswap(int *, int *);
 void sift_down(int *array, size_t size, size_t index, size_t size2);
+void bitonic_sort_rec(int *array, size_t size, int dir, size_t size_total);
+void bitonic_merge(int *array, size_t size, int dir, size_t size_total);
+
 
 
 #endif /* _SORT_H_ */

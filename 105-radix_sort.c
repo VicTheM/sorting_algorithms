@@ -33,7 +33,7 @@ void radix_sort(int *array, size_t size)
 	for (k = 1; max / k > 0; k *= 10)
 		counting_sortt(array, buffer, size, k, base);
 	free(base);
-	free (buffer);
+	free(buffer);
 }
 
 

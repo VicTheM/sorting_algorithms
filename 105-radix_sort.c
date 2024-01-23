@@ -1,16 +1,19 @@
 #include <stdlib.h>
 #include "sort.h"
 
-size_t get_digit(int number, int place_Value);
-int my_pow(int x, int y);
 void copy_array(int *src, size_t size, int *dest);
-size_t count_digit(int number);
+void counting_sortt(int *array, int *buffer, size_t size, int k, int *base);
 
 
+/**
+ * radix_sort - a successor of counting sort
+ * @array: array to sort
+ * @size: size of array
+ */
 void radix_sort(int *array, size_t size)
 {
-	size_t c, j, k, ndigits;
-	int *buffer, *base, digit, idx, max;
+	size_t c, k;
+	int *buffer, *base, max;
 
 	if (size < 2)
 		return;
@@ -27,81 +30,67 @@ void radix_sort(int *array, size_t size)
 			max = array[c];
 	}
 
-	/* main loop executed for every digit in numbers*/
-	ndigits = count_digit(max);
-	
-	for (k = 0; k < ndigits; k++)
-	{
-		for (c = 0; c < 10; c++)
-			base[c] = 0;
-		/* populate reference array */
-		for (j = 0; j < size; j++)
-		{
-			digit = get_digit(array[j], k);
-			base[digit]++;
-		}
-		/* populate lookup array with the sum */
-		for (j = 0; j < 9; j++)
-			base[j + 1] += base[j];
-
-		/* sort into a buffer */
-		for (j = 0; j < size; j++)
-		{
-			digit = get_digit(array[j], k);
-			idx = base[digit] - 1;
-			buffer[idx] = array[j];
-			base[digit]--;
-		}
-		print_array(buffer, size);
-		copy_array(buffer, size, array);
-	}
-
+	for (k = 1; max / k > 0; k *= 10)
+		counting_sortt(array, buffer, size, k, base);
 	free(base);
-	free(buffer);
+	free (buffer);
 }
 
 
 
 
-int my_pow(int x, int y)
-{
-	int i;
-	int ans = 1;
-
-	for (i = 0; i < y; i++)
-		ans *= x;
-
-	return (ans);
-}
-
-
-
-size_t get_digit(int number, int place_value)
-{
-	return ((number / (my_pow(10, place_value))) % 10);
-}
-
-
-
-size_t count_digit(int number)
-{
-	size_t digits = 1;
-
-	while (number / 10 != 0)
-	{
-		digits++;
-		number /= 10;
-	}
-
-	return (digits);
-}
-
-
-
+/**
+ * copy_array - copies one array to another
+ * @src: source
+ * @size: size of source
+ * @dest: destination
+ */
 void copy_array(int *src, size_t size, int *dest)
 {
 	size_t i = 0;
 
 	for ( ; i < size; i++)
 		dest[i] = src[i];
-} 
+}
+
+
+
+/**
+ * counting_sortt - implements counting sort on each of radix digit
+ * @array: array to sort
+ * @buffer: same size as @array
+ * @size: their size
+ * @k: used to determine which placeValue to sort by
+ * @base: an array of 10 slots
+ */
+void counting_sortt(int *array, int *buffer, size_t size, int k, int *base)
+{
+	size_t c;
+	int digit, idx, j;
+	{
+		for (c = 0; c < 10; c++)
+		{
+			buffer[c] = 0;
+			base[c] = 0;
+		}
+		/* populate reference array */
+		for (c = 0; c < size; c++)
+		{
+			base[(array[c] / k) % 10]++;
+		}
+		/* populate lookup array with the sum */
+		for (j = 0; j < 9; j++)
+			base[j + 1] += base[j];
+
+		/* sort into a buffer */
+		for (j = size - 1; j >= 0; j--)
+		{
+			digit = array[j];
+			idx = base[(digit / k) % 10] - 1;
+			buffer[idx] = digit;
+			base[(digit / k) % 10]--;
+		}
+		print_array(buffer, size);
+		copy_array(buffer, size, array);
+	}
+}

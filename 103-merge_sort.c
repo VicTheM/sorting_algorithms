@@ -27,6 +27,7 @@ void merge_array(int *b, int start, int middle, int end, int *a)
 	{
 		if (i < middle && (j >= end || a[i] <= a[j]))
 		{
+			printf("Executing if on arrayidx = %d cpyidx = %d\n", k, i);
 			b[k] = a[i];
 			i++;
 		}
@@ -49,10 +50,10 @@ void split_recursive(int *b, int start, int end, int *a)
 	mid = (start + end) / 2;
 	split_recursive(a, start, mid, b);
 	split_recursive(a, mid, end, b);
+
 	printf("**************merging******************\n");
 	printf("[left]: ");
-	print_array(a, end - start);
-	printf("[right]: ");
+/*	print_array(a, mid - start); */
 
 	merge_array(b, start, mid, end, a);
 	print_array(a + start, end - start);

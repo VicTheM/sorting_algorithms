@@ -19,7 +19,14 @@ void radix_sort(int *array, size_t size)
 		return;
 
 	buffer = malloc(sizeof(int) * size);
+	if (!buffer)
+		return;
 	base = malloc(sizeof(int) * 10);
+	if (!base)
+	{
+		free(buffer);
+		return;
+	}
 
 	max = array[0];
 	/* find max number */

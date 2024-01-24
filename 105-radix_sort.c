@@ -77,7 +77,8 @@ void counting_sortt(int *array, int *buffer, size_t size, int k, int *base)
 	{
 		for (c = 0; c < 10; c++)
 		{
-			buffer[c] = 0;
+			if (size > c)
+				buffer[c] = 0;
 			base[c] = 0;
 		}
 		/* populate reference array */

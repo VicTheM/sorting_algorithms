@@ -22,12 +22,16 @@ void merge_array(int *b, int start, int middle, int end, int *a)
 	int k, i = start;
 	int j = middle;
 
+	printf("Merging...\n");
+	printf("[left]: ");
+	print_array(a, middle - start);
+	printf("[right]: ");
+	print_array(a + middle, end - middle);
 
 	for (k = start; k < end; k++)
 	{
 		if (i < middle && (j >= end || a[i] <= a[j]))
 		{
-			printf("Executing if on arrayidx = %d cpyidx = %d\n", k, i);
 			b[k] = a[i];
 			i++;
 		}
@@ -37,6 +41,8 @@ void merge_array(int *b, int start, int middle, int end, int *a)
 			j++;
 		}
 	}
+	printf("[Done]: ");
+	print_array(b, end - start);
 }
 
 void split_recursive(int *b, int start, int end, int *a)
@@ -51,12 +57,7 @@ void split_recursive(int *b, int start, int end, int *a)
 	split_recursive(a, start, mid, b);
 	split_recursive(a, mid, end, b);
 
-	printf("**************merging******************\n");
-	printf("[left]: ");
-/*	print_array(a, mid - start); */
-
 	merge_array(b, start, mid, end, a);
-	print_array(a + start, end - start);
 }
 
 

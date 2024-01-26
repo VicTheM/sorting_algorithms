@@ -19,7 +19,14 @@ void radix_sort(int *array, size_t size)
 		return;
 
 	buffer = malloc(sizeof(int) * size);
+	if (!buffer)
+		return;
 	base = malloc(sizeof(int) * 10);
+	if (!base)
+	{
+		free(buffer);
+		return;
+	}
 
 	max = array[0];
 	/* find max number */
@@ -33,7 +40,7 @@ void radix_sort(int *array, size_t size)
 	for (k = 1; max / k > 0; k *= 10)
 		counting_sortt(array, buffer, size, k, base);
 	free(base);
-	free (buffer);
+	free(buffer);
 }
 
 
@@ -70,7 +77,8 @@ void counting_sortt(int *array, int *buffer, size_t size, int k, int *base)
 	{
 		for (c = 0; c < 10; c++)
 		{
-			buffer[c] = 0;
+			if (size > c)
+				buffer[c] = 0;
 			base[c] = 0;
 		}
 		/* populate reference array */

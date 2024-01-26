@@ -1,70 +1,73 @@
 #include "sort.h"
 
-int partition_2(int *a, int lo, int hi, size_t size);
-void swap_2(int *i, int *j);
-void hoare(int *array, int lo, int hi, size_t size);
+void quick_sort_recursion(int *array, size_t size, int low, int high);
+size_t partition_2(int *array, size_t size, size_t low, size_t high);
 
-
+/**
+ * quick_sort_hoare - Sorts an array of integers in
+ * ascending order using the Quick sort algorithm
+ *
+ * @array: An array of integers
+ * @size: The size of the array
+ */
 void quick_sort_hoare(int *array, size_t size)
 {
-	int lo, hi;
-
-	if (size < 2)
-		return;
-
-	lo = 0;
-	hi = size - 1;
-
-	hoare(array, lo, hi, size);
+	quick_sort_recursion(array, size, 0, size - 1);
 }
 
-
-void hoare(int *array, int lo, int hi, size_t size)
+/**
+ * quick_sort_recursion - This function is called recursively to implement the
+ * to implement the quick sort algorithm
+ * @low: Starting point to begin sorting partition.
+ * @high: End of partition.
+ * @array: The array to be sorted.
+ * @size: Size of entire array
+ */
+void quick_sort_recursion(int *array, size_t size, int low, int high)
 {
-	int pivot;
+	size_t pivot_index;
 
-	if (lo >= 0 && hi >= 0 && lo < hi)
+	if (low < high)
 	{
-		pivot = partition_2(array, lo, hi, size);
-		hoare(array, lo, pivot, size);
-		hoare(array, pivot + 1, hi, size);
+		pivot_index = partition_2(array, size, low, high);
+		quick_sort_recursion(array, size, low, pivot_index - 1);
+		quick_sort_recursion(array, size, pivot_index, high);
 	}
 }
 
 
-
-
-int partition_2(int *a, int lo, int hi, size_t size)
+/**
+ * partition_2 - This function partitions the given array and
+ * sorts the pivot in correct position.
+ * It uses the Hoare partition scheme with last elem as pivot.
+ * @array: The array to be sorted.
+ * @low: Starting point to begin sorting partition.
+ * @high: End of partition.
+ * @size: Size of entire array
+ * Return: Location of pivot after sorting.
+ */
+size_t partition_2(int *array, size_t size, size_t low, size_t high)
 {
-	int bound, i, j;
-
-	bound = a[lo];
-	i = lo - 1;
-	j = hi + 1;
+	int tmp, pivot_value = array[high];
+	size_t i = low - 1, j = high + 1;
 
 	while (1)
 	{
 		do {
 			i++;
-		} while (a[i] < bound);
-
+		} while (array[i] < pivot_value);
 		do {
 			j--;
-		} while (a[j] > bound);
+		} while (array[j] > pivot_value);
 
-		if (i >= j)
-			return (j);
-
-		swap_2(&a[i], &a[j]);
-		print_array(a, size);
+		if (i < j)
+		{
+		tmp = array[i];
+		array[i] = array[j];
+		array[j] = tmp;
+		print_array(array, size);
+		}
+		else
+			return (i);
 	}
-}
-
-
-void swap_2(int *i, int *j)
-{
-	int tmp = *i;
-
-	*i = *j;
-	*j = tmp;
 }

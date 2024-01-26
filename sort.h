@@ -62,6 +62,8 @@ void faviswap(int *, int *);
 void sift_down(int *array, size_t size, size_t index, size_t size2);
 void bitonic_sort_rec(int *array, size_t size, int dir, size_t size_total);
 void bitonic_merge(int *array, size_t size, int dir, size_t size_total);
+void merge_sort_rec(int *array, size_t size, int *temp);
+void merge(int *array, size_t size, size_t mid, int *tmp);
 
 
 
